@@ -1,0 +1,15 @@
+version: "3.7"
+
+services:
+  mysql:
+    image: mysql:8.0.33-debian
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sixteen
+      MYSQL_USER: sixteen_application
+      MYSQL_PASSWORD: sixteen_application
+
+volumes:
+  mysql_data:
