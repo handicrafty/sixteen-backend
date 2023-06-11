@@ -2,7 +2,8 @@ version: "3.7"
 
 services:
   mysql:
-    image: mysql:8.0.33-debian
+    # arm64 지원을 위해 oracle 버전 사용
+    image: mysql:8.0.33-oracle
     volumes:
       - mysql_data:/var/lib/mysql
     environment:
