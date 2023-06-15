@@ -1,0 +1,16 @@
+version: "3.7"
+
+services:
+  mysql:
+    # arm64 지원을 위해 oracle 버전 사용
+    image: mysql:8.0.33-oracle
+    volumes:
+      - mysql_data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: sixteen
+      MYSQL_USER: sixteen_application
+      MYSQL_PASSWORD: sixteen_application
+
+volumes:
+  mysql_data:
