@@ -4,13 +4,18 @@ services:
   mysql:
     # arm64 지원을 위해 oracle 버전 사용
     image: mysql:8.0.33-oracle
+    restart: always
     volumes:
       - mysql_data:/var/lib/mysql
+#      최초 시작시 초기화 되므로 새로운 schema를 적용하려면, `docker-compose down -v`로 volume 초기화 후 재실행
+      - "./src/main/resources/sql/schema.sql:/docker-entrypoint-initdb.d/1.sql"
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: sixteen
       MYSQL_USER: sixteen_application
       MYSQL_PASSWORD: sixteen_application
+    ports:
+      - "3306:3306"
 
 volumes:
   mysql_data:
