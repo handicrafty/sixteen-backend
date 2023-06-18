@@ -32,7 +32,9 @@ CREATE TABLE IF NOT EXISTS sixteen.`user_mission`
     mission_id BIGINT                 NOT NULL,
     created_at DATETIME default NOW() NOT NULL COMMENT '생성일시',
     CONSTRAINT user_mission_pk
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+    CONSTRAINT user_mission_uindex
+        UNIQUE (user_id, mission_id)
 ) COMMENT '유저의 미션 수행이력' COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS sixteen.`badge`
@@ -52,7 +54,7 @@ CREATE TABLE IF NOT EXISTS sixteen.`notification`
     id                BIGINT AUTO_INCREMENT,
     user_id           BIGINT                 NOT NULL COMMENT '대상 유저',
     title             VARCHAR(255)           NOT NULL COMMENT '알림 제목',
-    body              VARCHAR(500)           NOT NULL COMMENT '알림 내용',
+    body              VARCHAR(5000)           NOT NULL COMMENT '알림 내용',
     notification_type VARCHAR(50)            NOT NULL COMMENT '알림 유형',
     metadata          JSON                   NOT NULL COMMENT '알림 메타데이터',
     created_at        DATETIME default NOW() NOT NULL COMMENT '생성일시',
@@ -66,7 +68,7 @@ CREATE TABLE IF NOT EXISTS sixteen.`post`
     writer_id  BIGINT                 NOT NULL COMMENT '작성자',
     mbti       VARCHAR(4)             NOT NULL COMMENT 'MBTI 유형(필터링용)',
     title      VARCHAR(255)           NOT NULL COMMENT '제목',
-    body       VARCHAR(500)           NOT NULL COMMENT '내용',
+    body       VARCHAR(5000)           NOT NULL COMMENT '내용',
     image_url  VARCHAR(2048)          NULL COMMENT '이미지 URL',
     status     VARCHAR(50)            NOT NULL COMMENT '게시글 상태',
     created_at DATETIME default NOW() NOT NULL COMMENT '생성일시',
@@ -82,17 +84,9 @@ CREATE TABLE IF NOT EXISTS sixteen.`bookmark`
     post_id    BIGINT                 NOT NULL,
     created_at DATETIME default NOW() NOT NULL COMMENT '생성일시',
     CONSTRAINT bookmark_pk
-        PRIMARY KEY (id)
-) COMMENT '게시글 북마크' COLLATE = utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS sixteen.`bookmark`
-(
-    id         BIGINT AUTO_INCREMENT,
-    user_id    BIGINT                 NOT NULL,
-    post_id    BIGINT                 NOT NULL,
-    created_at DATETIME default NOW() NOT NULL COMMENT '생성일시',
-    CONSTRAINT bookmark_pk
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+    CONSTRAINT bookmark_uindex
+        UNIQUE (user_id, post_id)
 ) COMMENT '게시글 북마크' COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS sixteen.`like`
@@ -102,7 +96,9 @@ CREATE TABLE IF NOT EXISTS sixteen.`like`
     post_id    BIGINT                 NOT NULL,
     created_at DATETIME default NOW() NOT NULL COMMENT '생성일시',
     CONSTRAINT like_pk
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+    CONSTRAINT like_uindex
+        UNIQUE (user_id, post_id)
 ) COMMENT '게시글 좋아요' COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS sixteen.`tag`
@@ -122,7 +118,9 @@ CREATE TABLE IF NOT EXISTS sixteen.`post_tag`
     tag_id     BIGINT                 NOT NULL,
     created_at DATETIME default NOW() NOT NULL COMMENT '생성일시',
     CONSTRAINT post_tag_pk
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+    CONSTRAINT post_tag_uindex
+        UNIQUE (post_id, tag_id)
 ) COMMENT '게시글 태그' COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS sixteen.`comment`
@@ -148,7 +146,9 @@ CREATE TABLE IF NOT EXISTS sixteen.`feedback`
     is_upvote  BOOLEAN                NOT NULL,
     created_at DATETIME default NOW() NOT NULL COMMENT '생성일시',
     CONSTRAINT feedback_pk
-        PRIMARY KEY (id)
+        PRIMARY KEY (id),
+    CONSTRAINT feedback_uindex
+        UNIQUE (user_id, comment_id)
 ) COMMENT '댓글 피드백' COLLATE = utf8mb4_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS sixteen.`oauth`
