@@ -2,6 +2,20 @@
 
 ## How To Run
 
+### With Makefile
+
+#### Start
+
+```bash
+make
+```
+
+#### Stop
+
+```bash
+make local-dev-down
+```
+
 ### With Docker Compose
 
 ```bash
