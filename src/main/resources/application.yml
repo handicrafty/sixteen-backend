@@ -1,0 +1,36 @@
+# ACTIVATE PROFILE
+spring:
+  profiles:
+    active: local
+
+# SET PROFILE GROUPS
+---
+spring:
+  profiles:
+    group:
+      "local": "common,local"
+      "dev": "common,dev"
+      "prod": "common,prod"
+
+# COMMON
+---
+spring:
+  config:
+    activate:
+      on-profile: common
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+# LOCAL
+---
+spring:
+  config:
+    activate:
+      on-profile: local
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: 'jdbc:mysql://localhost:3306/sixteen?useUnicode=true&characterEncoding=utf8&autoReconnect=true&serverTimezone=UTC&useSSL=false&allowPublicKeyRetrieval=true'
+    username: sixteen_application
+    password: sixteen_application

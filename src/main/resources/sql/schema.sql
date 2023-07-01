@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS sixteen.`user`
     id                      BIGINT AUTO_INCREMENT,
     nickname                VARCHAR(12)            NOT NULL COMMENT '닉네임',
     mbti                    VARCHAR(4)             NOT NULL COMMENT 'MBTI 유형',
-    gender                  VARCHAR(2)             NOT NULL COMMENT '성별(남성, 여성)',
+    gender                  VARCHAR(6)             NOT NULL COMMENT '성별(MALE, FEMALE)',
     age                     INT                    NOT NULL COMMENT '연령대',
     modify_count            INT      default 0     NOT NULL COMMENT 'MBTI, 프로필 수정 횟수',
     like_and_feedback_count BIGINT   default 0     NOT NULL COMMENT '추천수(게시글, 댓글)',
